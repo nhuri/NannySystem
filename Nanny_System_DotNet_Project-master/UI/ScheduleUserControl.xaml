@@ -1,0 +1,133 @@
+﻿<UserControl x:Class="UI.ScheduleUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="450">
+   
+    <UserControl.Resources>
+
+        <local:ConvertIsCheckedToVisibility x:Key="convertIsCheckedToVisibility"/>
+
+
+        <Style x:Key="day_TextBlock" TargetType="TextBlock" BasedOn="{StaticResource FieldName}">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style x:Key="CheckDay_CheckBox" TargetType="CheckBox">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment"  Value="Center"/>
+            
+        </Style>
+
+        <Style x:Key="Time_TextBlock" TargetType="TextBlock" BasedOn="{StaticResource FieldName}">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,0,-12"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <!--#region Rows And Column Definitions-->
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <!--#endregion-->
+        
+        <!--#region Sunday-->
+        <TextBlock Text="Sunday" Style="{StaticResource day_TextBlock}"/>
+        <CheckBox Grid.Column="1" x:Name="SundayCheckBox" Style="{StaticResource CheckDay_CheckBox}" />
+        <StackPanel Grid.Column="2"  Visibility="{Binding ElementName=SundayCheckBox, Path=IsChecked, Converter={StaticResource convertIsCheckedToVisibility}}">
+            <TextBlock Text="Start Time:" Style="{StaticResource Time_TextBlock}"/>
+            <local:NumericUpDown x:Name="SundayStartTime"  Margin="10" />
+        </StackPanel >
+        <StackPanel Grid.Column="3"  Visibility="{Binding ElementName=SundayCheckBox, Path=IsChecked, Converter={StaticResource convertIsCheckedToVisibility}}">
+            <TextBlock Text="End Time: "  Style="{StaticResource Time_TextBlock}"/>
+            <local:NumericUpDown x:Name="SundayEndTime"  Margin="10" />
+        </StackPanel>
+        <!--#endregion-->
+
+        <!--#region Monday -->
+        <TextBlock Text="Monday" Grid.Row="1" Style="{StaticResource day_TextBlock}"/>
+        <CheckBox Grid.Column="1" x:Name="MondayCheckBox" Grid.Row="1" Style="{StaticResource CheckDay_CheckBox}" />
+        <StackPanel Grid.Column="2" Grid.Row="1" Visibility="{Binding ElementName=MondayCheckBox, Path=IsChecked, Converter={StaticResource convertIsCheckedToVisibility}}" >
+            <TextBlock Text="Start Time:" Style="{StaticResource Time_TextBlock}"/>
+            <local:NumericUpDown x:Name="MondayStartTime"  Margin="10" />
+        </StackPanel>
+        <StackPanel Grid.Column="3" Grid.Row="1" Visibility="{Binding ElementName=MondayCheckBox, Path=IsChecked, Converter={StaticResource convertIsCheckedToVisibility}}">
+            <TextBlock Text="End Time:" Style="{StaticResource Time_TextBlock}"/>
+            <local:NumericUpDown  x:Name="MondayEndTime"  Margin="10" />
+        </StackPanel>
+        <!--#endregion-->
+
+        <!--#region Tuesday -->
+        <TextBlock Text="Tuesday" Grid.Row="2"  Style="{StaticResource day_TextBlock}"/>
+        <CheckBox x:Name="TuesdayCheckBox" Grid.Column="1" Grid.Row="2"  Style="{StaticResource CheckDay_CheckBox}" />
+        <StackPanel Grid.Column="2" Grid.Row="2"  Visibility="{Binding ElementName=TuesdayCheckBox, Path=IsChecked, Converter={StaticResource convertIsCheckedToVisibility}}" >
+            <TextBlock Text="Start Time:" Style="{StaticResource Time_TextBlock}"/>
+            <local:NumericUpDown x:Name="TuesdayStartTime"   Margin="10" />
+        </StackPanel>
+        <StackPanel Grid.Column="3" Grid.Row="2" Visibility="{Binding ElementName=TuesdayCheckBox, Path=IsChecked, Converter={StaticResource convertIsCheckedToVisibility}}" >
+            <TextBlock Text="End Time:" Style="{StaticResource Time_TextBlock}"/>
+            <local:NumericUpDown  x:Name="TuesdayEndTime" Margin="10" />
+        </StackPanel>
+        <!--#endregion-->
+
+        <!--#region Wednesday -->
+        <TextBlock Text="Wednesday" Grid.Row="3"  Style="{StaticResource day_TextBlock}"/>
+        <CheckBox  x:Name="WednesdayCheckBox" Grid.Column="1" Grid.Row="3"  Style="{StaticResource CheckDay_CheckBox}" />
+        <StackPanel Grid.Column="2" Grid.Row="3" Visibility="{Binding ElementName=WednesdayCheckBox, Path=IsChecked, Converter={StaticResource convertIsCheckedToVisibility}}"   >
+            <TextBlock Text="Start Time:" Style="{StaticResource Time_TextBlock}"/>
+            <local:NumericUpDown x:Name="WednesdayStartTime"  Margin="10" />
+        </StackPanel>
+        <StackPanel Grid.Column="3" Grid.Row="3" Visibility="{Binding ElementName=WednesdayCheckBox, Path=IsChecked, Converter={StaticResource convertIsCheckedToVisibility}}" >
+            <TextBlock Text="End Time:" Style="{StaticResource Time_TextBlock}"/>
+            <local:NumericUpDown x:Name="WednesdayEndTime"  Margin="10" />
+        </StackPanel>
+        <!--#endregion-->
+
+        <!--#region Thursday -->
+        <TextBlock Text="Thursday" Grid.Row="4"  Style="{StaticResource day_TextBlock}"/>
+        <CheckBox  x:Name="ThursdayCheckBox" Grid.Column="1" Grid.Row="4"  Style="{StaticResource CheckDay_CheckBox}" />
+        <StackPanel Grid.Column="2" Grid.Row="4" Visibility="{Binding ElementName=ThursdayCheckBox, Path=IsChecked, Converter={StaticResource convertIsCheckedToVisibility}}"   >
+            <TextBlock Text="Start Time:" Style="{StaticResource Time_TextBlock}"/>
+            <local:NumericUpDown x:Name="ThursdayStartTime"    Margin="10" />
+        </StackPanel>
+        <StackPanel Grid.Column="3" Grid.Row="4"  Visibility="{Binding ElementName=ThursdayCheckBox, Path=IsChecked, Converter={StaticResource convertIsCheckedToVisibility}}">
+            <TextBlock Text="End Time:" Style="{StaticResource Time_TextBlock}"/>
+            <local:NumericUpDown  x:Name="ThursdayEndTime"  Margin="10" />
+        </StackPanel>
+
+        <!--#endregion-->
+
+        <!--#region Friday-->
+        <TextBlock Text="Friday" Grid.Row="5"  Style="{StaticResource day_TextBlock}"/>
+        <CheckBox  x:Name="FridayCheckBox" Grid.Column="1" Grid.Row="5"  Style="{StaticResource CheckDay_CheckBox}" />
+        <StackPanel Grid.Column="2" Grid.Row="5"  Visibility="{Binding ElementName=FridayCheckBox, Path=IsChecked, Converter={StaticResource convertIsCheckedToVisibility}}"  >
+            <TextBlock Text="Start Time:" Style="{StaticResource Time_TextBlock}"/>
+            <local:NumericUpDown x:Name="FridayStartTime"  Margin="10" />
+        </StackPanel>
+        <StackPanel Grid.Column="3" Grid.Row="5"  Visibility="{Binding ElementName=FridayCheckBox, Path=IsChecked, Converter={StaticResource convertIsCheckedToVisibility}}"  >
+            <TextBlock Text="End Time:" Style="{StaticResource Time_TextBlock}"/>
+            <local:NumericUpDown  Margin="10" x:Name="FridayEndTime" />
+        </StackPanel>
+        <!--#endregion-->
+
+    </Grid>
+    
+</UserControl>
+    
+    

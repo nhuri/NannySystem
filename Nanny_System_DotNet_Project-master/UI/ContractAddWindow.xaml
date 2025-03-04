@@ -1,0 +1,161 @@
+﻿<Window x:Class="UI.ContractAddWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI"
+        mc:Ignorable="d"
+        Title="Add a New Contract" Height="630" Width="870">
+    <Window.Resources>
+        <local:ConvertIsCheckedToVisibility x:Key="convertIsCheckedToVisibility"/>
+        <Style x:Key="Add_Btn" TargetType="Button" BasedOn="{StaticResource CardBtn}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=All_Childs_ComboBox, Path=SelectedItem}" Value="null">
+                    <Setter Property="Button.IsEnabled" Value="false"/>
+                </DataTrigger>
+
+
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="290*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="270*"/>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="500*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.ColumnSpan="5" Text="Add a New Contract" Style="{StaticResource TextBoxTitle}" />
+        <StackPanel Grid.Row="1" Style="{StaticResource StackForCardColumn}">
+            <TextBlock Text="Select a Child"  Style="{StaticResource FieldName}"/>
+            <ComboBox Height="40" x:Name="All_Childs_ComboBox" SelectionChanged="All_Childs_ComboBox_SelectionChanged"  >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="ID:   "/>
+                                <TextBlock Text="Name:   "/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="{Binding ChildID}"/>
+                                <TextBlock Text="{Binding ChildName}"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock x:Name="Warning_label"  Text="Child dosen't exist in the system"  Style="{StaticResource FieldName}" FontSize="13" Foreground="Red" Visibility="Collapsed"/>
+            <TextBlock Text="Select a Nanny"  Style="{StaticResource FieldName}"/>
+            <ComboBox Height="40" x:Name="All_Nannies_ComboBox" SelectionChanged="All_Nannies_ComboBox_SelectionChanged"  >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="ID:   "/>
+                                <TextBlock Text="Name:   "/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="{Binding NannyId}"/>
+                                <TextBlock Text="{Binding NannyPrivateName}"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text=""/>
+                                <TextBlock Text="{Binding NannyFamilyName}"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock Text="Introductory meeting"  Style="{StaticResource FieldName}" FontSize="15"/>
+            <TextBlock Text="Special details of the meeting"   Style="{StaticResource FieldName}" Margin="0,15,0,0" Visibility= "{Binding ElementName=IntroductoryMeeting_CheckBox, Path=IsChecked, Converter={StaticResource convertIsCheckedToVisibility}}" FontSize="11"/>
+            <TextBox x:Name="SpecialDetailsOfMeeting_TextBox" TextWrapping="Wrap"  Height="120" Style="{StaticResource TextBoxOfAddWidowStyle}"  Visibility="{Binding ElementName=IntroductoryMeeting_CheckBox, Path=IsChecked, Converter={StaticResource convertIsCheckedToVisibility}}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Margin="155,0,0,0">
+            <CheckBox x:Name="IntroductoryMeeting_CheckBox" Margin="-20,161,0,0" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
+        </StackPanel>
+
+        <StackPanel x:Name="StackPanel_2" Grid.Row="1" Grid.Column="2" Style="{StaticResource StackForCardColumn}">
+            <TextBlock Text="Select payment method" Style="{StaticResource FieldName}"/>
+            <ComboBox x:Name="Payment_Method_ComboBox" IsEnabled="False" SelectionChanged="Payment_Method_ComboBox_SelectionChanged">
+                <ComboBoxItem x:Name="Hourly_ComboBoxItem">Hourly</ComboBoxItem>
+                <ComboBoxItem x:Name="Monthly_ComboBoxItem">Monthly</ComboBoxItem>
+            </ComboBox>
+            <TextBlock Text="Calculated wage: " Style="{StaticResource FieldName}"/>
+            <TextBlock x:Name="Calculated_Wage_TextBox" Style="{StaticResource FieldValue}" />
+            <TextBlock Text="Contract signed " Style="{StaticResource FieldName}"/>
+            <TextBlock Text="Contract valid from:"  Style="{StaticResource FieldName}" Visibility="{Binding ElementName=Contract_Signed_CheckBox, Path=IsChecked, Converter={StaticResource convertIsCheckedToVisibility}}"/>
+            <DatePicker x:Name="Start_DatePicker" Style="{StaticResource DataPickerOfAddWidowStyle}" Visibility="{Binding ElementName=Contract_Signed_CheckBox, Path=IsChecked, Converter={StaticResource convertIsCheckedToVisibility}}"/>
+            <TextBlock Text="To:"  Style="{StaticResource FieldName}" Visibility="{Binding ElementName=Contract_Signed_CheckBox, Path=IsChecked, Converter={StaticResource convertIsCheckedToVisibility}}"/>
+            <DatePicker x:Name="End_DatePicker" Style="{StaticResource DataPickerOfAddWidowStyle}" Visibility="{Binding ElementName=Contract_Signed_CheckBox, Path=IsChecked, Converter={StaticResource convertIsCheckedToVisibility}}" />
+        </StackPanel>
+
+        <CheckBox Grid.Row="1"  Grid.Column="2" x:Name="Contract_Signed_CheckBox" Margin="143,125,55,231" />
+
+
+        <StackPanel Grid.Row="1" Grid.Column="4" Style="{StaticResource StackForCardColumn}">
+            <TextBlock Text="Nannies Suggester:"  Style="{StaticResource FieldName}"/>
+            <TextBlock Text="(Please enter the maximum distance between the adress you want a nanny to the nanny herself:)" TextWrapping="Wrap"  Style="{StaticResource FieldName}" FontSize="13"/>
+            <TextBox x:Name="Distance_TextBox" Style="{StaticResource TextBoxOfAddWidowStyle}" TextChanged="Distance_TextBox_TextChanged" PreviewMouseDown="Distance_TextBox_PreviewMouseDown"  />
+            <TextBlock Text="(Please choose which order you'd like to see)"  Style="{StaticResource FieldName}" FontSize="14"/>
+            <ComboBox x:Name="Order_ComboBox" SelectionChanged="Order_ComboBox_SelectionChanged" IsEnabled="False">
+                <ComboBoxItem x:Name="Order_Closest_Nanny" Content="Order by the closest nanny"/>
+                <ComboBoxItem x:Name="Order_Monthly" Content="Order by nannies accepts monthly wage"/>
+                <ComboBoxItem x:Name="Order_Hourly" Content="Order by nannies accepts hourly wage"/>
+                <ComboBoxItem x:Name="Order_Years_Exprience" Content="Order by years of exprience"/>
+            </ComboBox>
+            <TextBlock x:Name="Nannies_warning" Text="No nanny fully fit mom schedule found. therefore the most suitable nannies (by most days possible) will be presented" TextWrapping="Wrap" Style="{StaticResource FieldName}" FontSize="9.8" Visibility="Collapsed" Foreground="Red"/>
+            <DataGrid x:Name="Nannies_Fit_Mom_DataGrid" Height="180" IsReadOnly="True" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Path=NannyId}"/>
+                    <DataGridTextColumn Header="Private name" Binding="{Binding Path=NannyPrivateName}"/>
+                    <DataGridTextColumn Header="Family name" Binding="{Binding Path=NannyFamilyName}"/>
+                    <DataGridTextColumn x:Name="Column_Distance" Header="Distance (Meters)" Binding="{Binding distance2}" Visibility="Collapsed"/>
+                    <DataGridTextColumn x:Name="Column_NannyHourlySalary" Header="Salary per hour" Binding="{Binding Path=NannyHourlySalary}" Visibility="Collapsed"/>
+                    <DataGridTextColumn x:Name="Column_NannyMonthlySalary" Header="Salary per month" Binding="{Binding Path=NannyMonthlySalary}" Visibility="Collapsed"/>
+                    <DataGridTextColumn x:Name="Column_NannyYearsOfExperience" Header="Years of experience" Binding="{Binding Path=NannyYearsOfExperience}" Visibility="Collapsed"/>
+
+                    <DataGridTemplateColumn Header="Show card">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:Name="Show_Nanny_Card_Button">
+                                <Button Content="Show card" Background="White" Click="Show_Nanny_Card_Button_Click" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Select">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:Name="Select_Nanny_Button">
+                                <Button Content="Select" Background="White" Click="Select_Button_Click"  />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </StackPanel>
+        <Image x:Name="wait_image" Visibility="Collapsed" Source="images/aaa.png" Grid.Column="4" Grid.Row="1" Margin="14.667,78,15.333,21.667" Grid.RowSpan="2" />
+
+        <TextBlock Grid.Row="2" Grid.ColumnSpan="5" Style="{StaticResource TextBoxTitle}"  />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  Grid.Row="2" Grid.ColumnSpan="5">
+            <Button Content="Add" Style="{StaticResource Add_Btn}" Click="Button_Click" />
+        </StackPanel>
+    </Grid>
+</Window>

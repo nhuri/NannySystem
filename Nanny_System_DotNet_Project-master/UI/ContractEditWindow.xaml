@@ -1,0 +1,76 @@
+﻿<Window x:Class="UI.ContractEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI"
+        mc:Ignorable="d"
+        Title="ContractCard"  Height="450" Width="600">
+    <Window.Resources>
+        <Style x:Key="Add_Btn" TargetType="Button" BasedOn="{StaticResource CardBtn}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=Update_Hourly_salary_TextBox, Path=Text}" Value="">
+                    <Setter Property="Button.IsEnabled" Value="false"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=Update_Hourly_salary_TextBox, Path=Foreground}" Value="Red">
+                    <Setter Property="Button.IsEnabled" Value="false"/>
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding ElementName=Update_Monthly_salary_TextBox, Path=Text}" Value="">
+                    <Setter Property="Button.IsEnabled" Value="false"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=Update_Monthly_salary_TextBox, Path=Foreground}" Value="Red">
+                    <Setter Property="Button.IsEnabled" Value="false"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.ColumnSpan="3" Text="Update a Contract" Style="{StaticResource TextBoxTitle}" />
+
+        <StackPanel Grid.Row="1" Style="{StaticResource StackForCardColumn}">
+            <TextBlock  Text="Contract ID" Style="{StaticResource FieldName}"/>
+            <TextBlock x:Name="Update_ID_TextBlock" Style="{StaticResource FieldValue}" IsEnabled="False"/>
+            <TextBlock Text="Child ID"  Style="{StaticResource FieldName}" IsEnabled="False"/>
+            <TextBlock x:Name="Update_Child_ID_TextBlock" Style="{StaticResource FieldValue}" />
+            <TextBlock Text="Nanny ID"  Style="{StaticResource FieldName}" IsEnabled="False"/>
+            <TextBlock x:Name="Update_Nanny_ID_TextBlock" Style="{StaticResource FieldValue}" />
+            <TextBlock Text="Introductory Meeting?" Style="{StaticResource FieldName}"/>
+            <TextBlock Text="Speical details of the meeting:" Style="{StaticResource FieldName}"/>
+            <TextBox x:Name="Update_SpeicalDetailsOfMeeting" Style="{StaticResource TextBoxOfAddWidowStyle}" TextWrapping="Wrap" Height="96" />
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <TextBlock Text="Contract signed?" Style="{StaticResource FieldName}"/>
+            <TextBlock Text="Payment Method" Style="{StaticResource FieldName}"/>
+            <ComboBox x:Name="Payment_Method_ComboBox" SelectionChanged="Payment_Method_ComboBox_SelectionChanged">
+                <ComboBoxItem x:Name="Hourly_ComboBoxItem">Hourly</ComboBoxItem>
+                <ComboBoxItem x:Name="Monthly_ComboBoxItem">Monthly</ComboBoxItem>
+            </ComboBox>
+            <TextBlock Text="Calculated wage" Style="{StaticResource FieldName}"/>
+            <TextBlock x:Name="Calculated_Wage_TextBlock" Style="{StaticResource FieldValue}" />
+            
+            <TextBlock Text="Start Date" Style="{StaticResource FieldName}"/>
+            <DatePicker x:Name="Update_Start_Date_TextBlock"  />
+            <TextBlock Text="End Date" Style="{StaticResource FieldName}"/>
+            <DatePicker x:Name="Update_End_Date_TextBlock" />
+        </StackPanel>
+        <CheckBox x:Name="Update_signed_CheckBox" Grid.Column="1" Grid.Row="1" Margin="145,10,131,304" />
+        <CheckBox x:Name="Update_Introductory_Meeting_CheckBox" Grid.Column="0" Grid.Row="1" Margin="204,172,67,143" />
+
+
+        <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Style="{StaticResource TextBoxTitle}"  />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  Grid.Row="2" Grid.ColumnSpan="3">
+            <Button x:Name="Update_Bottun" Grid.Row="2" Grid.ColumnSpan="3" Content="Update" Style="{StaticResource Add_Btn}" Click="Button_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

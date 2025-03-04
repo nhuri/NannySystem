@@ -1,0 +1,114 @@
+﻿<UserControl x:Class="UI.NumericUpDown"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="45" d:DesignWidth="120">
+    <UserControl.Resources>
+
+        <Style x:Key="NumericUpDown_LeftBottomBtn" TargetType="Button">
+            <Setter Property="MinWidth" Value="25" />
+            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="Foreground" Value="#FF0062D7"/>
+            <Setter Property="FontWeight" Value="UltraLight"/>
+            <Setter Property="MaxHeight" Value="23"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="0,0,0,15" BorderBrush="#FF0062D7" Background="White" BorderThickness="1.5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="NumericUpDown_LeftTopBtn" TargetType="Button" BasedOn="{StaticResource NumericUpDown_LeftBottomBtn}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="15,0,0,0" BorderBrush="#FF0062D7" Background="White" BorderThickness="1.5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="NumericUpDown_RightBottomBtn" TargetType="Button" BasedOn="{StaticResource NumericUpDown_LeftBottomBtn}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="0,0,15,0" BorderBrush="#FF0062D7" Background="White" BorderThickness="1.5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="NumericUpDown_RightTopBtn" TargetType="Button" BasedOn="{StaticResource NumericUpDown_LeftBottomBtn}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="0,15,0,0" BorderBrush="#FF0062D7" Background="White" BorderThickness="1.5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="Colon_TextBolck" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="0,0,1,4"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#FF0062D7"/>
+            
+            
+
+        </Style>
+        <Style x:Key="Numbers_TextBox" TargetType="TextBox" >
+            <Setter Property="FontSize" Value="23"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="UltraLight"/>
+            <Setter Property="Foreground" Value="#FF0062D7"/>
+            <Setter Property="Width" Value="25"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+
+
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="2.5*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <Button x:Name="LeftTop_Btn" Content="˄" Style="{StaticResource NumericUpDown_LeftTopBtn}" Click="Button_Click"/>
+            <Button x:Name="LeftBottom_Btn" Content="˅" Style="{StaticResource NumericUpDown_LeftBottomBtn}" Click="Button_Click"/>
+        </StackPanel>
+
+        <Border Grid.Column="1" BorderBrush="#FF0062D7" BorderThickness="1.5">
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Background="White">
+                <TextBox x:Name="Hour_TextBox"   Text="00" Style="{StaticResource Numbers_TextBox}" TextChanged="TextBox_TextChanged"  />
+                <TextBlock Text=":"  Style="{StaticResource Colon_TextBolck}"/>
+                <TextBox x:Name="Minute_TextBox"  Text="00" Style="{StaticResource Numbers_TextBox}" TextChanged="TextBox_TextChanged" />
+            </StackPanel>
+        </Border>
+
+        <StackPanel Grid.Column="2">
+            <Button x:Name="RightTop_Btn" Content="˄" Style="{StaticResource NumericUpDown_RightTopBtn}" Click="Button_Click"/>
+            <Button x:Name="RightBottom_Btn" Content="˅" Style="{StaticResource NumericUpDown_RightBottomBtn}" Click="Button_Click"/>
+        </StackPanel>
+
+
+    </Grid>
+</UserControl>

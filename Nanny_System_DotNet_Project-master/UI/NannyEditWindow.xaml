@@ -1,0 +1,117 @@
+﻿<Window x:Class="UI.NannyEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI"
+        mc:Ignorable="d"
+         Title="nanny update window" Height="680" Width="1270">
+
+    <Window.Resources>
+        <local:ConvertIsCheckedToVisibility x:Key="convertIsCheckedToVisibility"/>
+        <Style x:Key="Add_Btn" TargetType="Button" BasedOn="{StaticResource CardBtn}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=FirstName_TextBox, Path=Text}" Value="" >
+                    <Setter Property="Button.IsEnabled" Value="false"/>
+                </DataTrigger>
+                <DataTrigger  Binding="{Binding ElementName=FirstName_TextBox, Path=Foreground}" Value="Red">
+                    <Setter Property="Button.IsEnabled" Value="false"/>
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding ElementName=LastName_TextBox, Path=Text}" Value="">
+                    <Setter Property="Button.IsEnabled" Value="false"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=LastName_TextBox, Path=Foreground}" Value="Red">
+                    <Setter Property="Button.IsEnabled" Value="false"/>
+                </DataTrigger>
+
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.ColumnSpan="4" Text="Update a nanny" Style="{StaticResource TextBoxTitle}" />
+        <StackPanel Grid.Row="1" Style="{StaticResource StackForCardColumn}">
+            <TextBlock  Text="ID" Style="{StaticResource FieldName}"/>
+            <TextBox x:Name="ID_TextBox" Style="{StaticResource TextBoxOfAddWidowStyle}" />
+            <TextBlock Text="First Name"  Style="{StaticResource FieldName}"/>
+            <TextBox x:Name="FirstName_TextBox" Style="{StaticResource TextBoxOfAddWidowStyle}" LostFocus="FirstName_TextBox_LostFocus" PreviewMouseDown="FirstName_TextBox_PreviewMouseDown"/>
+            <TextBlock Text="Last Name"  Style="{StaticResource FieldName}"/>
+            <TextBox x:Name="LastName_TextBox" Style="{StaticResource TextBoxOfAddWidowStyle}" LostFocus="LastName_TextBox_LostFocus" PreviewMouseDown="LastName_TextBox_PreviewMouseDown"/>
+            <TextBlock Text="Date of birth"  Style="{StaticResource FieldName}"/>
+            <DatePicker x:Name="birth_DatePicker" Style="{StaticResource DataPickerOfAddWidowStyle}"/>
+            <TextBlock Text="Phone Number"  Style="{StaticResource FieldName}"/>
+            <TextBox x:Name="PhoneNumber_TextBox" Style="{StaticResource TextBoxOfAddWidowStyle}" />
+            <TextBlock Text="City Adress"  Style="{StaticResource FieldName}"/>
+            <TextBox x:Name="City_TextBox" Style="{StaticResource TextBoxOfAddWidowStyle}" />
+            <TextBlock Text="Street Adress"  Style="{StaticResource FieldName}"/>
+            <TextBox x:Name="Street_TextBox" Style="{StaticResource TextBoxOfAddWidowStyle}" />
+            <TextBlock Text="Floor"  Style="{StaticResource FieldName}"/>
+            <TextBox x:Name="Floor_TextBox" Style="{StaticResource TextBoxOfAddWidowStyle}" />
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text=" Elevator"  Style="{StaticResource FieldName}"/>
+                <CheckBox x:Name="Elevator_CheckBox" Style="{StaticResource CheckBoxOfAddWindowStyle}"/>
+            </StackPanel>
+
+
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="1" Style="{StaticResource StackForCardColumn}">
+            <TextBlock Text="Experience"  Style="{StaticResource FieldName}"/>
+            <TextBox x:Name="Experience_TextBox" Style="{StaticResource TextBoxOfAddWidowStyle}" />
+            <TextBlock Text="Maximum number of childrens"  Style="{StaticResource FieldName}"/>
+            <TextBox x:Name="MaxChildrens_TextBox" Style="{StaticResource TextBoxOfAddWidowStyle}" />
+            <TextBlock Text="Minimum age (in months)"  Style="{StaticResource FieldName}"/>
+            <TextBox x:Name="MinAge_TextBox" Style="{StaticResource TextBoxOfAddWidowStyle}" />
+            <TextBlock Text="Maximum age (in months)"  Style="{StaticResource FieldName}"/>
+            <TextBox x:Name="MaxAge_TextBox" Style="{StaticResource TextBoxOfAddWidowStyle}" />
+            <TextBlock Text="Vacation according to"  Style="{StaticResource FieldName}"/>
+            <ComboBox x:Name="Vacation_ComboBox" Style="{StaticResource ComboBoxOfAddWindowStyle}" >
+                <ComboBoxItem x:Name="MOE_ComboBoxItem" Content="Ministry of Education" Style="{StaticResource ComboBoxItemOfAddWindowStyle}" />
+                <ComboBoxItem x:Name="MOIT_ComboBoxItem" Content="Ministry of Industry and Trade" Style="{StaticResource ComboBoxItemOfAddWindowStyle}"  />
+            </ComboBox>
+
+            <TextBlock Text="Monthly salary"  Style="{StaticResource FieldName}"/>
+            <TextBox x:Name="MonthlySalary_TextBox" Style="{StaticResource TextBoxOfAddWidowStyle}" />
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Option for hourly salary"  Style="{StaticResource FieldName}"/>
+                <CheckBox x:Name="HourlySalary_CheckBox" Style="{StaticResource CheckBoxOfAddWindowStyle}" />
+            </StackPanel>
+            <TextBlock Text="Hourly salary"  Style="{StaticResource FieldName}"  Visibility="{Binding ElementName=HourlySalary_CheckBox, Path=IsChecked, Converter={StaticResource convertIsCheckedToVisibility}}"/>
+            <TextBox x:Name="HourlySalary_TextBox" Style="{StaticResource TextBoxOfAddWidowStyle}" Visibility="{Binding ElementName=HourlySalary_CheckBox, Path=IsChecked, Converter={StaticResource convertIsCheckedToVisibility}}" />
+
+        </StackPanel>
+
+        <StackPanel Grid.Column="2" Grid.Row="1" Style="{StaticResource StackForCardColumn}">
+
+            <TextBlock Text="Times are needed for a Nanny"  Style="{StaticResource FieldName}"  />
+            <local:ScheduleUserControl x:Name="Schedule"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="3" Style="{StaticResource StackForCardColumn}">
+            <TextBlock Text="Recommendations"  Style="{StaticResource FieldName}"  />
+            <TextBox x:Name="Recommendations_TextBox" Height="450" TextWrapping="Wrap"  Style="{StaticResource TextBoxOfAddWidowStyle}"  />
+        </StackPanel>
+        <!--
+        <Border  Grid.Row="1" Grid.Column="2" BorderThickness="2" BorderBrush="#FF0062D7" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource StackForCardColumn}" >
+            <Image Grid.Row="1" Grid.Column="2" Source="C:\Users\Shlomi\source\repos\BE\Images\ChildsImage\ddd.png" MaxHeight="140" MaxWidth="120" HorizontalAlignment="Right" VerticalAlignment="Top" MinHeight="140" MinWidth="150" />
+        </Border>
+        -->
+        <TextBlock Grid.Row="2" Grid.ColumnSpan="4" Style="{StaticResource TextBoxTitle}"  />
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  Grid.Row="2" Grid.ColumnSpan="4">
+            <Button Content="Update" Style="{StaticResource Add_Btn}" Click="Button_Click" />
+        </StackPanel>
+    </Grid>
+</Window>

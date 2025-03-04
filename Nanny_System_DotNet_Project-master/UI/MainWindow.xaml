@@ -1,0 +1,64 @@
+﻿<Window x:Class="UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI"
+        mc:Ignorable="d"
+        Title="Main Menu" Height="500" Width="900">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Button  x:Name="MothersBtn" Style="{StaticResource WindowMainBtn}" Click="Button_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MyMouseLeave">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="MotherTitle" Text="Mothers" VerticalAlignment="Center"/>
+                    <Image Source="images/Mother.png"/>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+        <Button x:Name="ChildsBtn" Style="{StaticResource WindowMainBtn}" Click="Button_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MyMouseLeave" Grid.Column="1">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="ChildrenTitle" Text="Children" VerticalAlignment="Center"/>
+                    <Image Source="images/Child.png"/>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+        <Button x:Name="NannysBtn" Style="{StaticResource WindowMainBtn}" Click="Button_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MyMouseLeave" Grid.Row="1">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="NannysTitle"  Text="Nannys" VerticalAlignment="Center"/>
+                    <Image Source="images/Nanny.png"/>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+        <Button  x:Name="ContractsBtn" Style="{StaticResource WindowMainBtn}" Click="Button_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MyMouseLeave" Grid.Row="1"  Grid.Column="1">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="ContractsTitle"   Text="Contracts" VerticalAlignment="Center"/>
+                    <Image Source="images/Contract.png" Margin="5"/>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+        <Button  x:Name="GroupingBtn" Style="{StaticResource WindowMainBtn}" Click="Button_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MyMouseLeave" Grid.Row="2" Grid.ColumnSpan="2">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="GroupingTitle"  Text="Grouping" VerticalAlignment="Center"/>
+                    <Image Source="images/grouping.png"/>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+
+
+    </Grid>
+</Window>

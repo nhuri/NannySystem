@@ -1,0 +1,80 @@
+﻿<Window x:Class="UI.MotherWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI"
+        mc:Ignorable="d"
+             Title="MothersWindow" Height="450" Width="730">
+    <Window.Resources>
+        <Style TargetType="StackPanel" x:Key="Filters_StackPanel">
+            <Setter Property="Margin" Value="5,2,0,0"/>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="Filters_textBlock" BasedOn="{StaticResource FieldName}">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="FontWeight" Value="UltraLight"/>
+        </Style>
+
+        <DataTemplate x:Key="HeaderTemplate">
+            <TextBlock Text="{Binding}" 
+                    FontWeight="UltraLight"
+                    TextWrapping="Wrap"
+                       Foreground="#FF0062D7"
+                       />
+        </DataTemplate>
+
+        <Style TargetType="{x:Type Expander}" x:Key="Filter_Expander">
+            <Setter Property="HeaderTemplate" Value="{StaticResource HeaderTemplate}"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <TextBlock  Text="Mothers' menu" Style="{StaticResource TextBoxTitle}" />
+
+        <Button x:Name="AddNanny_Btn" Content="Add Mother" HorizontalAlignment="Left" MinHeight="40" Style="{StaticResource CardBtn}" Grid.Row="1"  Margin="10" Click="AddNanny_Btn_Click"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <Expander Grid.Row="2" Header="Advanced filtering" Style="{StaticResource Filter_Expander}" Margin="10" MinWidth="170">
+                <StackPanel Style="{StaticResource Filters_StackPanel}">
+                    <TextBlock Text="Days nanny is needed" Style="{StaticResource Filters_textBlock}" />
+                    <ListBox x:Name="WorkDay_ListBox" SelectionMode="Multiple" FontWeight="UltraLight" FontSize="10" BorderThickness="0" Foreground="#FF0062D7">
+                        <ListBoxItem x:Name="Sunday_ListBoxItem" Content="Sunday"  />
+                        <ListBoxItem x:Name="Monday_ListBoxItem" Content="Monday"/>
+                        <ListBoxItem x:Name="Tuesday_ListBoxItem" Content="Tuesday"/>
+                        <ListBoxItem x:Name="Wednesday_ListBoxItem" Content="Wednesday"/>
+                        <ListBoxItem x:Name="Thursday_ListBoxItem" Content="Thursday"/>
+                        <ListBoxItem x:Name="Friday_ListBoxItem" Content="Friday"/>
+                    </ListBox>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="Filter_Btn" Content="Filter by days"  Style="{StaticResource CardBtn}" HorizontalAlignment="Left" Margin="0,10,10,0"  MinHeight="15" MinWidth="60" Click="Filter_Btn_Click" />
+                        <Button x:Name="ShowAll_Btn" Content="Show all"  Style="{StaticResource CardBtn}" HorizontalAlignment="Left" Margin="0,10,0,0"  MinHeight="15" MinWidth="60" Click="ShowAll_Btn_Click"/>
+                    </StackPanel>
+
+                </StackPanel>
+            </Expander>
+
+
+            <StackPanel Grid.Row="2" Style="{StaticResource StackForCardColumn}" Margin="10" HorizontalAlignment="Right">
+             
+                <DataGrid  x:Name="Mothers_DataGrid" HorizontalAlignment="Right" IsReadOnly="True" MaxHeight="200" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" MouseDoubleClick="dou_MouseDoubleClick">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" ElementStyle="{StaticResource ColumnsOfDataGridStyle}" Binding="{Binding Path=MomID}" MinWidth="90" />
+                        <DataGridTextColumn Header="First Name"  Binding="{Binding Path=MomFirstName}" ElementStyle="{StaticResource ColumnsOfDataGridStyle}" MinWidth="90"/>
+                        <DataGridTextColumn Header="First Name"  Binding="{Binding Path=MomFamilyName}" ElementStyle="{StaticResource ColumnsOfDataGridStyle}" MinWidth="90"/>
+                        <DataGridTextColumn Header="Adress" Binding="{Binding Path=MomAdress}" ElementStyle="{StaticResource ColumnsOfDataGridStyle}" MinWidth="90"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+
+        </StackPanel>
+
+        <TextBlock Grid.Row="4"  Style="{StaticResource TextBoxTitle}"  />
+    </Grid>
+</Window>
+

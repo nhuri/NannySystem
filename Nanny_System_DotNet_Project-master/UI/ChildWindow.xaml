@@ -1,0 +1,120 @@
+﻿<Window x:Class="UI.ChildWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI"
+        mc:Ignorable="d"
+        Title="Child's menu" Height="550" Width="700">
+    <Window.Resources>
+        <Style TargetType="StackPanel" x:Key="Filters_StackPanel">
+            <Setter Property="Margin" Value="5,2,0,0"/>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="Filters_textBlock" BasedOn="{StaticResource FieldName}">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="FontWeight" Value="UltraLight"/>
+        </Style>
+        
+        <DataTemplate x:Key="HeaderTemplate">
+            <TextBlock Text="{Binding}" 
+                    FontWeight="UltraLight"
+                    TextWrapping="Wrap"
+                       Foreground="#FF0062D7"
+                       />
+        </DataTemplate>
+        
+        <Style TargetType="{x:Type Expander}" x:Key="Filter_Expander">
+            <Setter Property="HeaderTemplate" Value="{StaticResource HeaderTemplate}"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock  Text="Child's menu" Style="{StaticResource TextBoxTitle}" />
+
+        <Button Content="Add Child" HorizontalAlignment="Left" MinHeight="40" Style="{StaticResource CardBtn}" Grid.Row="1" Click="Button_Click" Margin="10"/>
+
+        <Expander Grid.Row="2" Header="Advanced filtering" Style="{StaticResource Filter_Expander}" Margin="10">
+                <StackPanel Orientation="Horizontal" Grid.Row="2">
+                    <StackPanel Style="{StaticResource Filters_StackPanel}">
+                        <TextBlock Text="is have nanny" Style="{StaticResource Filters_textBlock}"/>
+                    <ComboBox x:Name="isHaveNannyFilter_ComboBox" Width="80">
+                            <ComboBoxItem Content="All options"/>
+                            <ComboBoxItem Content="Yes"/>
+                            <ComboBoxItem Content="No"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource Filters_StackPanel}">
+                    <TextBlock Text="Special Needs"  Style="{StaticResource Filters_textBlock}" />
+                    <ComboBox x:Name="SpecialNeedsFilter_ComboBox" Width="80" >
+                            <ComboBoxItem Content="All options"/>
+                            <ComboBoxItem Content="With special needs"/>
+                            <ComboBoxItem Content="Without special needs"/>
+                        </ComboBox>
+
+                    </StackPanel>
+
+                    <StackPanel Style="{StaticResource Filters_StackPanel}">
+                        <TextBlock Text="Mother" Style="{StaticResource Filters_textBlock}"/>
+                    <ComboBox x:Name="MotherFilter_ComboBox" Width="80">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock  Text="{Binding Path=MomFirstName}" />
+                                        <TextBlock Margin="3,0,0,0"  Text="{Binding Path=MomFamilyName}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                    </StackPanel >
+                    <StackPanel MinWidth="150" Style="{StaticResource Filters_StackPanel}">
+                        <TextBlock x:Name="MinAgeFilter_TextBlock" Text="Min Age: 3 months" Style="{StaticResource Filters_textBlock}"/>
+                        <Slider x:Name="MinAgeFilter_Slider" Minimum="3" Maximum="156" Value="3" ValueChanged="Slider_ValueChanged"/>
+                    </StackPanel>
+
+                    <StackPanel MinWidth="150" Style="{StaticResource Filters_StackPanel}">
+                        <TextBlock x:Name="MaxAgeFilter_TextBlock" Text="Min Age: 156 months" Style="{StaticResource Filters_textBlock}"/>
+                        <Slider x:Name="MaxAgeFilter_Slider" Minimum="3" Maximum="156" Value="156" ValueChanged="Slider_ValueChanged"/>
+                    </StackPanel>
+
+                    <Button x:Name="Filter_Btn" Content="Filter" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource CardBtn}" Margin="30,0,0,0"  MinHeight="50" MinWidth="50" Click="Filter_Btn_Click"  />
+
+                </StackPanel>
+
+        </Expander>
+
+        <StackPanel Grid.Row="3" Style="{StaticResource StackForCardColumn}" Margin="10" HorizontalAlignment="Center">
+            <ComboBox x:Name="SimpleFilter_ComboBox" Text="Filter" HorizontalAlignment="Right" MinWidth="120" Style="{StaticResource ComboBoxOfAddWindowStyle}" SelectionChanged="Filter_ComBox_SelectionChanged">
+                <ComboBoxItem Content="All Childs"/>
+                <ComboBoxItem Content="Special needs only"/>
+                <ComboBoxItem Content="Have nanny only"/>
+            </ComboBox>
+
+            <DataGrid  x:Name="Childs_DataGrid" HorizontalAlignment="Right" IsReadOnly="True" MaxHeight="200" AutoGenerateColumns="False" MouseDoubleClick="Childs_DataGrid_MouseDoubleClick" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                <DataGrid.Resources>
+                    <local:ConvertMomIdToMomName x:Key="convertMomIdToMomName"/>
+                    <local:ConvertBoolToCheakBox x:Key="convertBoolToCheakBox "/>
+                </DataGrid.Resources>
+                
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" ElementStyle="{StaticResource ColumnsOfDataGridStyle}" Binding="{Binding Path=ChildID}" />
+                    <DataGridTextColumn Header="Name"  Binding="{Binding Path=ChildName}" ElementStyle="{StaticResource ColumnsOfDataGridStyle}"/>
+                    <DataGridTextColumn Header="Date of birth" Binding="{Binding Path=ChildAge, StringFormat=d}" ElementStyle="{StaticResource ColumnsOfDataGridStyle}" />
+                    <DataGridTextColumn Header="Mother" Binding="{Binding Path=ChildMomID, Converter={StaticResource convertMomIdToMomName}}" ElementStyle="{StaticResource ColumnsOfDataGridStyle}"/>
+                </DataGrid.Columns>
+                
+            </DataGrid>
+
+        </StackPanel>
+        <TextBlock Grid.Row="4"  Style="{StaticResource TextBoxTitle}"  />
+
+    </Grid>
+</Window>

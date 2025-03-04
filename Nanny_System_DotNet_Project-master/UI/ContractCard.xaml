@@ -1,0 +1,54 @@
+﻿<Window x:Class="UI.ContractCard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI"
+        mc:Ignorable="d"
+        Title="ContractCard"  Height="450" Width="750">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.ColumnSpan="3" Text="Contract's Card" Style="{StaticResource TextBoxTitle}" />
+
+        <StackPanel Grid.Row="1" Style="{StaticResource StackForCardColumn}">
+            <TextBlock  Text="Contract ID" Style="{StaticResource FieldName}"/>
+            <TextBlock x:Name="ID_TextBlock" Style="{StaticResource FieldValue}" />
+            <TextBlock Text="Child ID"  Style="{StaticResource FieldName}"/>
+            <TextBlock x:Name="Child_ID_TextBlock" Style="{StaticResource FieldValue}" />
+            <TextBlock Text="Nanny ID"  Style="{StaticResource FieldName}"/>
+            <TextBlock x:Name="Nanny_ID_TextBlock" Style="{StaticResource FieldValue}" />
+            <TextBlock Text="Introductory Meeting?" Style="{StaticResource FieldName}"/>
+            <TextBlock Text="Speical details of the meeting:" Style="{StaticResource FieldName}"/>
+            <TextBlock x:Name="SpeicalDetailsOfMeeting" Style="{StaticResource FieldValue}" TextWrapping="Wrap" />
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <TextBlock Text="Contract signed?" Style="{StaticResource FieldName}"/>
+            <TextBlock Text="Payment Method" Style="{StaticResource FieldName}"/>
+            <TextBlock x:Name="PaymentMethod_TextBlock" Style="{StaticResource FieldValue}" />
+            <TextBlock Text="Calculated wage" Style="{StaticResource FieldName}"/>
+            <TextBlock x:Name="Calculated_wage_TextBlock" Style="{StaticResource FieldValue}" />
+            <TextBlock Text="Start Date" Style="{StaticResource FieldName}"/>
+            <TextBlock x:Name="Start_Date_TextBlock" Style="{StaticResource FieldValue}" />
+            <TextBlock Text="End Date" Style="{StaticResource FieldName}"/>
+            <TextBlock x:Name="End_Date_TextBlock" Style="{StaticResource FieldValue}" />
+        </StackPanel>
+        <CheckBox x:Name="signed_CheckBox" Grid.Column="1" Grid.Row="1" Margin="145,10,-145,32" Grid.RowSpan="2" IsEnabled="False"/>
+        <CheckBox x:Name="Introductory_Meeting_CheckBox" Grid.Column="0" Grid.Row="1" Margin="204,172,56,109" IsEnabled="False" />
+
+
+        <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Style="{StaticResource TextBoxTitle}"  />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  Grid.Row="2" Grid.ColumnSpan="3">
+            <Button x:Name="Delete_Btn" Content="Delete" Style="{StaticResource CardBtn}" Click="Button_Click"/>
+            <Button x:Name="Update_Btn" Grid.Row="2" Grid.ColumnSpan="3" Content="Update" Style="{StaticResource CardBtn}" Click="Button_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
